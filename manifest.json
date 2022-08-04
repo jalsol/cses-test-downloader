@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "CSES Test Downloader",
+  "version": "0.1.0",
+  "description": "download test cases from CSES",
+  "permissions": ["storage", "tabs", "scripting"],
+  "host_permissions": ["https://cses.fi/problemset/result/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://cses.fi/problemset/result/*"],
+      "js": [
+        "lib/jszip.min.js",
+        "lib/jszip-utils.min.js",
+        "lib/FileSaver.min.js",
+        "content-script.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "action": {
+    "default_title": "CSES Test Downloader",
+    "default_popup": "popup.html"
+  }
+}
