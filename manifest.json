@@ -3,7 +3,7 @@
   "name": "CSES Test Downloader",
   "version": "0.1.0",
   "description": "download test cases from CSES",
-  "permissions": ["storage", "tabs", "scripting"],
+  "permissions": ["tabs"],
   "host_permissions": ["https://cses.fi/problemset/result/*"],
   "content_scripts": [
     {

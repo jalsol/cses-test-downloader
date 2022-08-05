@@ -1,9 +1,8 @@
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  if (request.message !== "start") {
-    return;
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.message === "download start") {
+    sendResponse("received download start");
+    downloadTests();
   }
-
-  downloadTests();
 });
 
 function getTestLinks() {
@@ -21,8 +20,8 @@ function getTestLinks() {
 }
 
 function urlToPromise(url) {
-  return new Promise(function (resolve, reject) {
-    JSZipUtils.getBinaryContent(url, function (err, data) {
+  return new Promise((resolve, reject) => {
+    JSZipUtils.getBinaryContent(url, (err, data) => {
       if (err) {
         reject(err);
       } else {
@@ -54,8 +53,17 @@ function downloadTests() {
 
   console.log("test created");
 
-  zip.generateAsync({ type: "blob" }).then(function callback(blob) {
-    saveAs(blob, `${problemName}.zip`);
-    console.log("test downloaded");
-  });
+  zip
+    .generateAsync({
+      type: "blob",
+      compression: "DEFLATE",
+      streamFiles: true,
+      compressionOptions: {
+        level: 6,
+      },
+    })
+    .then(function callback(blob) {
+      saveAs(blob, `${problemName}.zip`);
+      console.log("test downloaded");
+    });
 }
