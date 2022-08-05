@@ -8,7 +8,7 @@ judge program for the Vietnamese Olympiad in Informatics) test structure.
 
 I don't intend to create this extension in the first place.
 [@winprn](https://github.com/winprn) and
-[@deptrai2k7](https://github.com/deptrai2k7) told me to make one, so here it is.
+[@hoangquocvietuet](https://github.com/hoangquocvietuet) told me to make one, so here it is.
 This is also my first attempt at creating a browser extension, please bear with
 me if it sucks.
 
