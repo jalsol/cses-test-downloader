@@ -1,5 +1,7 @@
 # CSES Test Downloader
 
+![preview](cses-test-downloader.png)
+
 This Chrome (sorry Firefox users) extension fetches test cases from your result
 page and download them. Currently supports custom naming and Themis (the official
 judge program for the Vietnamese Olympiad in Informatics) test structure.
