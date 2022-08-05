@@ -39,13 +39,15 @@ function downloadTests() {
   let problemName = "CSES";
 
   tests.forEach((test, i) => {
+    let formattedId = (i + 1).toString().padStart(2, "0");
+
     zip.file(
-      `${problemName}/Test${i + 1}/${problemName}.inp`,
+      `${problemName}/Test${formattedId}/${problemName}.inp`,
       urlToPromise(test.inputRef)
     );
 
     zip.file(
-      `${problemName}/Test${i + 1}/${problemName}.out`,
+      `${problemName}/Test${formattedId}/${problemName}.out`,
       urlToPromise(test.outputRef)
     );
   });
