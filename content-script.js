@@ -6,7 +6,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 function getTestLinks() {
-  let allAnchors = document.querySelectorAll('a[class="view"');
+  let allAnchors = document.querySelectorAll('a[class="view"]');
   let tests = [];
 
   for (let i = 0; i < allAnchors.length; i += 3) {
@@ -20,7 +20,7 @@ function getTestLinks() {
 }
 
 function getTaskId() {
-  let link = document.querySelectorAll('a[class="current"')[0].href;
+  let link = document.querySelectorAll('a[class="current"]')[0].href;
   return link.split("/").pop();
 }
 
