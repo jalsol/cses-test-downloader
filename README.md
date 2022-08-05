@@ -19,6 +19,14 @@ me if it sucks.
 
 # Installation
 
+## From .crx file
+
+- Go to [Release](https://github.com/jalsol/cses-test-downloader/releases) and install the .crx file
+- Go to `chrome://extensions` and enable Developer mode
+- Drag the installed .crx file to the browser
+
+## From source
+
 - Clone this repository (or download as zip then extract)
 - Go to `chrome://extensions` and enable Developer mode
 - Select `Load unpacked` then select the directory
