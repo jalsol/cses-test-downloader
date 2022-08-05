@@ -1,7 +1,7 @@
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.message === "download start") {
     sendResponse("received download start");
-    downloadTests();
+    downloadTests(request.taskName);
   }
 });
 
@@ -19,6 +19,11 @@ function getTestLinks() {
   return tests;
 }
 
+function getTaskId() {
+  let link = document.querySelectorAll('a[class="current"')[0].href;
+  return link.split("/").pop();
+}
+
 function urlToPromise(url) {
   return new Promise((resolve, reject) => {
     JSZipUtils.getBinaryContent(url, (err, data) => {
@@ -31,22 +36,26 @@ function urlToPromise(url) {
   });
 }
 
-function downloadTests() {
+function downloadTests(taskName) {
   const zip = new JSZip();
   const tests = getTestLinks();
 
-  let problemName = "CSES";
+  if (!taskName) {
+    taskName = getTaskId();
+  }
+
+  console.log("task is", taskName);
 
   tests.forEach((test, i) => {
     let formattedId = (i + 1).toString().padStart(2, "0");
 
     zip.file(
-      `${problemName}/Test${formattedId}/${problemName}.inp`,
+      `${taskName}/Test${formattedId}/${taskName}.inp`,
       urlToPromise(test.inputRef)
     );
 
     zip.file(
-      `${problemName}/Test${formattedId}/${problemName}.out`,
+      `${taskName}/Test${formattedId}/${taskName}.out`,
       urlToPromise(test.outputRef)
     );
   });
@@ -63,7 +72,7 @@ function downloadTests() {
       },
     })
     .then(function callback(blob) {
-      saveAs(blob, `${problemName}.zip`);
+      saveAs(blob, `${taskName}.zip`);
       console.log("test downloaded");
     });
 }
