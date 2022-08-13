@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "CSES Test Downloader",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "download test cases from CSES",
   "permissions": ["tabs"],
   "host_permissions": ["https://cses.fi/problemset/result/*"],
