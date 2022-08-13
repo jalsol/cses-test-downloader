@@ -1,7 +1,12 @@
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.message === "download start") {
     sendResponse("received download start");
-    downloadTests(request.taskName);
+
+    try {
+      downloadTests(request.taskName, request.testFormat);
+    } catch (e) {
+      sendResponse(e);
+    }
   }
 });
 
@@ -36,7 +41,7 @@ function urlToPromise(url) {
   });
 }
 
-function downloadTests(taskName) {
+function downloadTests(taskName, testFormat) {
   const zip = new JSZip();
   const tests = getTestLinks();
 
@@ -47,17 +52,22 @@ function downloadTests(taskName) {
   console.log("task is", taskName);
 
   tests.forEach((test, i) => {
-    let formattedId = (i + 1).toString().padStart(2, "0");
+    let inputPath = "";
+    let outputPath = "";
 
-    zip.file(
-      `${taskName}/Test${formattedId}/${taskName}.inp`,
-      urlToPromise(test.inputRef)
-    );
+    if (testFormat === "Themis") {
+      let formattedId = (i + 1).toString().padStart(2, "0");
+      inputPath = `${taskName}/Test${formattedId}/${taskName}.inp`;
+      outputPath = `${taskName}/Test${formattedId}/${taskName}.out`;
+    } else if (testFormat === "DMOJ") {
+      inputPath = `${taskName}.${i + 1}.in`;
+      outputPath = `${taskName}.${i + 1}.out`;
+    } else {
+      throw "test format not allowed";
+    }
 
-    zip.file(
-      `${taskName}/Test${formattedId}/${taskName}.out`,
-      urlToPromise(test.outputRef)
-    );
+    zip.file(inputPath, urlToPromise(test.inputRef));
+    zip.file(outputPath, urlToPromise(test.outputRef));
   });
 
   console.log("test created");

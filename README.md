@@ -3,8 +3,8 @@
 ![preview](cses-test-downloader.png)
 
 This Chrome (sorry Firefox users) extension fetches test cases from your result
-page and download them. Currently supports custom naming and Themis (the official
-judge program for the Vietnamese Olympiad in Informatics) test structure.
+page and download them. Currently supports DMOJ and Themis test formats (if you
+would like more, please consider a pull request).
 
 I don't intend to create this extension in the first place.
 [@winprn](https://github.com/winprn) and
@@ -35,4 +35,5 @@ me if it sucks.
 
 - Click on the extension
 - Enter the desired task name (optional, the default name is the task's ID)
-- Click `download` and wait
+- Choose the test format
+- Click on `download` and wait

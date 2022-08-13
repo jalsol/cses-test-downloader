@@ -1,5 +1,6 @@
 function popup() {
-  let taskName = document.getElementById("input").value;
+  let taskName = document.getElementById("input-task-name").value;
+  let testFormat = document.getElementById("test-format").value;
 
   chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
     chrome.tabs.sendMessage(
@@ -7,10 +8,15 @@ function popup() {
       {
         message: "download start",
         taskName: taskName,
+        testFormat: testFormat,
       },
       (response) => {
         if (response === "received download start") {
-          alert("download has started, please wait...");
+          alert(
+            `download for task "${taskName}" (${testFormat} format) has started, please wait...`
+          );
+        } else if (response == "test format not allowed") {
+          alert("test format not allowed, aborted.");
         }
       }
     );
